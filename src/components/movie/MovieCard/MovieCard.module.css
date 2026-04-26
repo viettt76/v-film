@@ -1,0 +1,221 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ─── Thumbnail ─ */
+.thumbWrap {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-hover);
+  cursor: pointer;
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-slow);
+}
+
+.card:hover .thumb {
+  transform: scale(1.06);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card-overlay);
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+
+.card:hover .overlay { opacity: 1; }
+
+.badges {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+
+.card:hover .playOverlay { opacity: 1; }
+
+/* ─── Info ─ */
+.info {
+  padding: 0 0.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  transition: color var(--t-fast);
+  line-height: 1.3;
+}
+
+.name:hover { color: var(--color-accent); }
+
+.meta {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+/* ─── Hover Preview ─ */
+.preview {
+  position: absolute;
+  top: 0;
+  width: 300px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-dropdown);
+  overflow: hidden;
+  animation: popIn var(--t-base) cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: auto;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.previewCenter {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.previewRight { left: 0; }
+.previewLeft { right: 0; }
+
+.previewPoster {
+  position: relative;
+  width: 100%;
+  height: 170px;
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.previewGradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(to top, var(--color-bg-card), transparent);
+}
+
+.previewActions {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.previewPlayBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-accent);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background var(--t-fast);
+  white-space: nowrap;
+}
+.previewPlayBtn:hover { background: var(--color-accent-hover); }
+
+.previewIconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: white;
+  transition: all var(--t-fast);
+  flex-shrink: 0;
+}
+.previewIconBtn:hover, .favActive {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.previewInfo {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.previewTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.previewMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  align-items: center;
+}
+
+.imdb {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+.previewGenres {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.previewDesc {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+
+/* ─── Mobile: no preview ─ */
+@media (max-width: 768px) {
+  .preview { display: none; }
+  .playOverlay { opacity: 0.7; }
+}

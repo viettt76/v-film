@@ -1,0 +1,235 @@
+.container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: none;
+}
+
+.container.showControls {
+  cursor: default;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─── Spinner ─ */
+.spinnerWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Controls ─ */
+.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 0.75rem 0.75rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.container.showControls .controls {
+  opacity: 1;
+}
+
+/* ─── Progress ─ */
+.progressWrap {
+  position: relative;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.progressTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  transition: height var(--t-fast);
+}
+
+.progressWrap:hover .progressTrack {
+  height: 6px;
+}
+
+.bufferedBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.3);
+  border-radius: var(--radius-full);
+}
+
+.progressBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.progressInput {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ─── Bottom row ─ */
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.leftControls, .rightControls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  color: rgba(255,255,255,0.85);
+  transition: all var(--t-fast);
+  flex-shrink: 0;
+}
+.iconBtn:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+.volumeInput {
+  width: 70px;
+  -webkit-appearance: none;
+  background: rgba(255,255,255,0.25);
+  height: 3px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  outline: none;
+}
+.volumeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+.timeDisplay {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.8);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  margin-left: 0.25rem;
+}
+
+.serverSelect {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--t-fast);
+}
+.serverSelect:hover { border-color: var(--color-accent); }
+
+/* ─── Title bar ─ */
+.titleBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  opacity: 0;
+  transition: opacity var(--t-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container.showControls .titleBar { opacity: 1; }
+
+/* ─── Error ─ */
+.error {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.error span { font-size: 2.5rem; }
+
+.retryBtn {
+  background: var(--color-accent);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background var(--t-fast);
+}
+.retryBtn:hover { background: var(--color-accent-hover); }
+
+/* ─── Mobile ─ */
+@media (max-width: 480px) {
+  .volumeInput { display: none; }
+  .timeDisplay { font-size: 0.7rem; }
+}

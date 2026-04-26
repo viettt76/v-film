@@ -1,0 +1,26 @@
+.page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem var(--content-px) 3rem;
+  min-height: 100dvh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+}

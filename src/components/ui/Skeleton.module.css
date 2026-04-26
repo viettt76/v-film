@@ -1,0 +1,53 @@
+.skeleton {
+  display: block;
+}
+
+.cardSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cardImage {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-md);
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0 0.1rem;
+}
+
+.cardTitle {
+  height: 0.9rem;
+  width: 80%;
+  border-radius: var(--radius-xs);
+}
+
+.cardMeta {
+  height: 0.75rem;
+  width: 50%;
+  border-radius: var(--radius-xs);
+}
+
+.rowSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.rowTitle {
+  height: 1.5rem;
+  width: 220px;
+  border-radius: var(--radius-sm);
+}
+
+.rowCards {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 6), 1fr);
+  gap: 0.75rem;
+}
