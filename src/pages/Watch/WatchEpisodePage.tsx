@@ -7,6 +7,7 @@ import { MovieType } from '@/types/movie';
 import { updateWatchProgress, getMovieHistory } from '@/hooks/useWatchHistory';
 import { Badge } from '@/components/ui/Badge';
 import { Star, Clock, Calendar, Tag, Globe, CheckCircle, ArrowsLeftRight } from '@phosphor-icons/react';
+import { Helmet } from 'react-helmet-async';
 import styles from './WatchPage.module.css';
 import { useState, useEffect } from 'react';
 
@@ -105,6 +106,11 @@ export function WatchEpisodePage() {
 
   return (
     <div className={styles.page}>
+      <Helmet>
+        <title>{`${movie.name} - Tập ${episodeNum}`}</title>
+        <meta name="description" content={movie.content?.replace(/<[^>]*>/g, '').slice(0, 160)} />
+      </Helmet>
+
       <div className={styles.inner}>
         {/* Player */}
         <div className={styles.playerWrap}>

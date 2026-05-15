@@ -6,6 +6,7 @@ import { MovieSource } from '@/types/movie';
 import { MovieGrid } from '@/components/movie/MovieGrid/MovieGrid';
 import { Pagination } from '@/components/ui/Pagination';
 import { Globe } from '@phosphor-icons/react';
+import { Helmet } from 'react-helmet-async';
 import styles from '../Genre/ListPage.module.css';
 
 export function CountryPage() {
@@ -27,6 +28,9 @@ export function CountryPage() {
 
   return (
     <div className={styles.page}>
+      <Helmet>
+        <title>{data?.titlePage ?? (country ? `Quốc gia: ${country}` : 'Quốc gia')}</title>
+      </Helmet>
       <div className={styles.header}>
         <Globe size={22} className={styles.icon} />
         <h1 className={styles.title}>{data?.titlePage ?? country}</h1>

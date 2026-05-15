@@ -1,12 +1,13 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { lazy, Suspense, useCallback, useRef } from 'react';
+import { lazy, Suspense, useCallback } from 'react';
 import { searchMovies, getMovieDetailBySlug } from '@/api/movieApi';
 import { movieKeys, STALE } from '@/api/queryKeys';
 import { MovieType } from '@/types/movie';
 import { updateWatchProgress, getMovieHistory } from '@/hooks/useWatchHistory';
 import { Badge } from '@/components/ui/Badge';
 import { Star, Clock, Calendar, Globe, Tag, ArrowsLeftRight } from '@phosphor-icons/react';
+import { Helmet } from 'react-helmet-async';
 import styles from './WatchPage.module.css';
 import { useState, useEffect } from 'react';
 
@@ -43,8 +44,8 @@ export function WatchMoviePage() {
           const filtered = res.items.filter(item => 
             item.slug !== slug && 
             (item.name.toLowerCase().includes('phần') || 
-             item.name.toLowerCase().includes('chapter') || 
-             /\d+$/.test(item.name))
+            item.name.toLowerCase().includes('chapter') || 
+            /\d+$/.test(item.name))
           );
           setSequels(filtered);
         });
@@ -96,6 +97,11 @@ export function WatchMoviePage() {
 
   return (
     <div className={styles.page}>
+      <Helmet>
+        <title>{movie.name}</title>
+        <meta name="description" content={movie.content?.replace(/<[^>]*>/g, '').slice(0, 160)} />
+      </Helmet>
+
       <div className={styles.inner}>
         {/* Player */}
         <div className={styles.playerWrap}>

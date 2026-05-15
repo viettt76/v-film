@@ -193,7 +193,28 @@ export function VideoPlayer({
 
   // Fullscreen change
   useEffect(() => {
-    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    const onFsChange = () => {
+      const isFs = !!document.fullscreenElement;
+      setIsFullscreen(isFs);
+      
+      if (isFs) {
+        // Lock to landscape on mobile when entering fullscreen
+        if (window.innerWidth < 1024 && screen.orientation && (screen.orientation as any).lock) {
+          (screen.orientation as any).lock('landscape').catch(() => {
+            // Ignore errors (some devices/browsers don't support locking)
+          });
+        }
+      } else {
+        // Unlock orientation when exiting fullscreen
+        if (screen.orientation && screen.orientation.unlock) {
+          try {
+            screen.orientation.unlock();
+          } catch {
+            // Ignore
+          }
+        }
+      }
+    };
     document.addEventListener('fullscreenchange', onFsChange);
     return () => document.removeEventListener('fullscreenchange', onFsChange);
   }, []);
@@ -258,6 +279,7 @@ export function VideoPlayer({
       className={`${styles.container} ${showControls ? styles.showControls : ''}`}
       onMouseMove={showControlsTemporarily}
       onTouchStart={showControlsTemporarily}
+      onDoubleClick={toggleFullscreen}
       onClick={() => {
         if (window.matchMedia('(pointer: fine)').matches) {
           togglePlay();
@@ -275,7 +297,7 @@ export function VideoPlayer({
 
       {/* Loading spinner */}
       {loading && (
-        <div className={styles.spinnerWrap} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.spinnerWrap} onClick={(e) => e.stopPropagation()} onDoubleClick={(e) => e.stopPropagation()}>
           <div className={styles.spinner} aria-label="Đang tải..." />
         </div>
       )}
@@ -284,6 +306,7 @@ export function VideoPlayer({
       <div
         className={styles.controls}
         onClick={(e) => e.stopPropagation()}
+        onDoubleClick={(e) => e.stopPropagation()}
       >
         {/* Progress bar */}
         <div className={styles.progressWrap}>

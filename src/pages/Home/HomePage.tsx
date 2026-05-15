@@ -3,6 +3,7 @@ import { getNewlyUpdated, getMoviesByGenre, getGenreList } from '@/api/movieApi'
 import { movieKeys, STALE } from '@/api/queryKeys';
 import { MovieRow } from '@/components/movie/MovieRow/MovieRow';
 import { MovieRowSkeleton } from '@/components/ui/Skeleton';
+import { Helmet } from 'react-helmet-async';
 import styles from './HomePage.module.css';
 
 import { MovieSource } from '@/types/movie';
@@ -62,6 +63,10 @@ export function HomePage() {
 
   return (
     <div className={styles.page}>
+      <Helmet>
+        <title>V-Film - Xem phim trực tuyến miễn phí</title>
+        <meta name="description" content="Trang web xem phim trực tuyến miễn phí, cập nhật phim mới nhất từ OPhim và KKPhim." />
+      </Helmet>
       <div className={styles.content}>
         {/* Newly updated OPhim */}
         {loadingNew ? (

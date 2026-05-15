@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { Layout } from '@/components/layout/Layout';
 import { HomePage } from '@/pages/Home/HomePage';
@@ -36,6 +37,9 @@ const router = createBrowserRouter([
         path: '*',
         element: (
           <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+            <Helmet>
+              <title>404 - Không tìm thấy trang | V-Film</title>
+            </Helmet>
             <h2>404 - Không tìm thấy trang</h2>
           </div>
         ),
@@ -46,22 +50,25 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <RouterProvider router={router} />
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: 'var(--color-bg-card)',
-              color: 'var(--color-text-primary)',
-              border: '1px solid var(--color-border)',
-            },
-          }}
-        />
-      </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <Helmet defaultTitle="V-Film - Xem phim trực tuyến" titleTemplate="%s | V-Film" />
+          <RouterProvider router={router} />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: 'var(--color-bg-card)',
+                color: 'var(--color-text-primary)',
+                border: '1px solid var(--color-border)',
+              },
+            }}
+          />
+        </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 

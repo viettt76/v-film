@@ -120,10 +120,19 @@
   gap: 0.5rem;
 }
 
-.leftControls, .rightControls {
+.leftControls {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.rightControls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
 }
 
 .iconBtn {
@@ -178,6 +187,11 @@
   cursor: pointer;
   outline: none;
   transition: border-color var(--t-fast);
+  white-space: nowrap;
+  max-width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 0;
 }
 .serverSelect:hover { border-color: var(--color-accent); }
 
@@ -229,7 +243,37 @@
 .retryBtn:hover { background: var(--color-accent-hover); }
 
 /* ─── Mobile ─ */
+@media (max-width: 640px) {
+  .serverSelect {
+    max-width: 100px;
+  }
+}
+
 @media (max-width: 480px) {
   .volumeInput { display: none; }
-  .timeDisplay { font-size: 0.7rem; }
+  .timeDisplay { 
+    font-size: 0.7rem;
+    margin-left: 0;
+  }
+  .serverSelect {
+    max-width: 75px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
+  }
+  .bottomRow {
+    gap: 0.25rem;
+  }
+  .leftControls, .rightControls {
+    gap: 0.125rem;
+  }
+  .iconBtn {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .serverSelect {
+    max-width: 60px;
+  }
 }
